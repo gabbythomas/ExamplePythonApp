@@ -2,7 +2,7 @@ pipeline {
   agent { label 'python-build' }
   
   environment {
-    BUILD_IMAGE_NAME = 'example-python-app-build'
+    BUILD_IMAGE_NAME = 'example-python-app-build/${BRANCH_NAME}:${BUILD_NUMBER}'
   }
   
   stages {
@@ -15,7 +15,7 @@ pipeline {
     stage('Build target image') {
       steps {
         script {
-          docker.build($BUILD_IMAGE_NAME, '-f Dockerfiles/build-app.dockerfile .')
+          docker.build(${BUILD_IMAGE_NAME}, '-f Dockerfiles/build-app.dockerfile .')
         }
       }
     }
