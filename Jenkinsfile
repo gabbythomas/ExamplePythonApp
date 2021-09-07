@@ -24,8 +24,8 @@ pipeline {
     stage('Smoke test target image') {
       steps {
         script {
-          sh 'docker run --rm --detach -p 5000:5000 --name ${BUILD_CONTAINER_NAME} ${BUILD_IMAGE_NAME}'
-          sh 'curl http://localhost:5000'
+          sh 'docker run -dit -p 5000:5000 --name ${BUILD_CONTAINER_NAME} ${BUILD_IMAGE_NAME}'
+          sh 'curl localhost:5000'
         }
       }
     }
@@ -42,7 +42,7 @@ pipeline {
       
       script {
           sh 'docker image rm ${BUILD_IMAGE_NAME}'
-          sh 'docker container rm -f ${BUILD_CONTAINER_IMAGE}'
+          sh 'docker container rm -f ${BUILD_CONTAINER_NAME}'
       }
     }
   }
