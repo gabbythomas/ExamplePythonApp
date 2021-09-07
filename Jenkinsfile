@@ -1,9 +1,15 @@
 pipeline {
   agent { label 'python-build' }
   stages {
+    stage('Preparation') {
+      steps {
+        checkout scm
+      }
+    }
+    
     stage('Build target image') {
       steps {
-        sh 'echo building...'
+        docker.build('example-python-app', 'Dockerfiles/build-app.dockerfile')
       }
     }
 
