@@ -24,8 +24,8 @@ pipeline {
     stage('Smoke test target image') {
       steps {
         script {
-          sh 'docker run -dit -p 5000:5000 --name ${BUILD_CONTAINER_NAME} ${BUILD_IMAGE_NAME}'
-          sh 'curl localhost:5000'
+          sh 'docker run -dit -p 5432:5432 --name ${BUILD_CONTAINER_NAME} ${BUILD_IMAGE_NAME}'
+          sh 'curl localhost:5432'
         }
       }
     }
