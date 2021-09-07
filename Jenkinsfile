@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'python-app' }
+  agent { label 'python-build' }
   stages {
     stage('Build target image') {
       steps {
