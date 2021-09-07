@@ -31,8 +31,11 @@ pipeline {
 
     stage('Push target image to Dockerhub') {
       steps {
-        docker.withRegistry('https://registry.hub.docker.com') {
-          sh 'docker tag ${BUILD_IMAGE_NAME} gabrient/example-python-app'
+        script {
+          docker.withRegistry('https://registry.hub.docker.com') {
+            sh 'docker tag ${BUILD_IMAGE_NAME} gabrient/example-python-app'
+          }
+        }
       }
     }
   }
