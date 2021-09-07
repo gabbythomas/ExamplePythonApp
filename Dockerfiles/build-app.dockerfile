@@ -7,5 +7,7 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
+python3 app.test.py
+
 EXPOSE 5432
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=5432"]
