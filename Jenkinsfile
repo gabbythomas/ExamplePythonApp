@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent python-build
   stages {
     stage('Build target image') {
       steps {
