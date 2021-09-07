@@ -3,7 +3,7 @@ pipeline {
   
   environment {
     BUILD_IMAGE_NAME = "example-python-app-build/${BRANCH_NAME}:${BUILD_NUMBER}"
-    BUILD_CONTAINER_NAME = "example-python-app-${BRANCH_NAME}-${BUILD_NUMBER}"
+    TEST_IMAGE_NAME = "example-python-app-test/${BRANCH_NAME}:${BUILD_NUMBER}"
   }
   
   stages {
@@ -24,7 +24,7 @@ pipeline {
     stage('Smoke test target image') {
       steps {
         script {
-          sh 'echo testing...'
+          docker.build('${TEST_IMAGE_NAME}', '-f Dockerfiles/test-app.dockerfile .')
         }
       }
     }
@@ -41,6 +41,7 @@ pipeline {
       
       script {
           sh 'docker image rm ${BUILD_IMAGE_NAME}'
+        sh 'docker image rm ${TEST_IMAGE_NAME}'
       }
     }
   }
