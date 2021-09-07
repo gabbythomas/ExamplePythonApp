@@ -31,7 +31,8 @@ pipeline {
 
     stage('Push target image to Dockerhub') {
       steps {
-        sh 'echo pushing...'
+        docker.withRegistry('https://registry.hub.docker.com') {
+          sh 'docker tag ${BUILD_IMAGE_NAME} gabrient/example-python-app'
       }
     }
   }
@@ -40,7 +41,7 @@ pipeline {
       cleanWs()
       
       script {
-          sh 'docker image rm ${BUILD_IMAGE_NAME}'
+        sh 'docker image rm ${BUILD_IMAGE_NAME}'
         sh 'docker image rm ${TEST_IMAGE_NAME}'
       }
     }
