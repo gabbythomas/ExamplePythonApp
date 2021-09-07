@@ -25,7 +25,7 @@ pipeline {
       steps {
         script {
           sh 'docker run -dit -p 5432:5432 --name ${BUILD_CONTAINER_NAME} ${BUILD_IMAGE_NAME}'
-          sh 'curl localhost:5432'
+          sh 'curl http://localhost:5432'
         }
       }
     }
