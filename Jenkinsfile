@@ -41,8 +41,8 @@ pipeline {
       cleanWs()
       
       script {
-          sh 'docker image rm ${BUILD_IMAGE_NAME}'
           sh 'docker container rm -f ${BUILD_CONTAINER_NAME}'
+          sh 'docker image rm ${BUILD_IMAGE_NAME}'
       }
     }
   }
