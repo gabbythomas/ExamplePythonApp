@@ -10,7 +10,7 @@ pipeline {
     stage('Build target image') {
       steps {
         script {
-          docker.build('example-python-app', '-f Dockerfiles/build-app.dockerfile')
+          docker.build('example-python-app', '-f Dockerfiles/build-app.dockerfile .')
         }
       }
     }
