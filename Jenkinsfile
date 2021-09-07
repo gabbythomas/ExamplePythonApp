@@ -22,7 +22,11 @@ pipeline {
 
     stage('Smoke test target image') {
       steps {
-        sh 'echo testing...'
+        script {
+          docker.image('${BUILD_IMAGE_NAME}').withRun('-p 5000:5000') {
+            sh 'curl localhost:5000'
+          }
+        }
       }
     }
 
