@@ -4,6 +4,7 @@ pipeline {
   environment {
     BUILD_IMAGE_NAME = "example-python-app-build/${BRANCH_NAME}:${BUILD_NUMBER}"
     TEST_IMAGE_NAME = "example-python-app-test/${BRANCH_NAME}:${BUILD_NUMBER}"
+    RELEASE_IMAGE_NAME = "docker://docker.io/gabrient/example-python-app:${BUILD_NUMBER}"
   }
   
   stages {
@@ -32,9 +33,10 @@ pipeline {
     stage('Push target image to Dockerhub') {
       steps {
         script {
-          withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+          withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
+                                            usernameVariable: 'USER', passwordVariable: 'PASS')]) {
             sh 'docker login -u ${USER} -p ${PASS} docker.io'
-            sh 'docker push ${BUILD_IMAGE_NAME} docker://docker.io/gabrient/example-python-app:1'
+            sh 'docker push ${BUILD_IMAGE_NAME} ${RELEASE_IMAGE_NAME}'
           }
         }
       }
