@@ -32,9 +32,9 @@ pipeline {
     stage('Push target image to Dockerhub') {
       steps {
         script {
-          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+          docker.withRegistry('docker.io', 'dockerhub-credentials') {
             sh 'docker tag ${BUILD_IMAGE_NAME} gabrient/example-python-app:1'
-            sh 'docker push gabrient/example-python-app:1'
+            sh 'docker push docker.io/gabrient/example-python-app:1'
           }
         }
       }
