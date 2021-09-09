@@ -33,7 +33,8 @@ pipeline {
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com') {
-            sh 'docker tag ${BUILD_IMAGE_NAME} gabrient/example-python-app'
+            sh 'docker tag ${BUILD_IMAGE_NAME} gabrient/example-python-app:1'
+            sh 'docker push gabrient/example-python-app:1'
           }
         }
       }
