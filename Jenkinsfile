@@ -32,7 +32,8 @@ pipeline {
     stage('Push target image to Dockerhub') {
       steps {
         script {
-          docker.withRegistry('docker.io', 'dockerhub-credentials') {
+          withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+            sh 'docker login -u ${USER} -p {PASS} docker.io'
             sh 'docker push ${BUILD_IMAGE_NAME} docker://docker.io/gabrient/example-python-app:1'
           }
         }
