@@ -22,7 +22,7 @@ pipeline {
       }
     }
 
-    stage('Smoke test target image') {
+    stage('Test target image') {
       steps {
         script {
           docker.build('${TEST_IMAGE_NAME}', '-f Dockerfiles/test-app.dockerfile .')
@@ -30,7 +30,7 @@ pipeline {
       }
     }
 
-    stage('Push target image to Dockerhub') {
+    stage('Publish target image') {
       steps {
         script {
           withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
